@@ -5,14 +5,12 @@ the world has recruited you. You have been hired as a junior Data Engineer and a
 creating a script that can extract the list of the economies of the world in 
 descending order of their GDPs in Billion USD (rounded to 2 decimal places), as logged by the 
 International Monetary Fund (IMF).
-
 The data is saved in a dataFrame, Database and Json File. They are then queried to return the 
 top 10 largest economies """
 
 import pandas as pd
 import numpy as np
 import sqlite3
-
 
 URL = "https://web.archive.org/web/20230902185326/https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29"
 
@@ -43,14 +41,9 @@ df = df.rename(
 # Taking the subset of data we will be working with
 df = df[["Country","IMF Estimate (millions)"]]
 
-
-
 # removing countries without datapoints
 df["IMF Estimate (millions)"].unique()
 df = df.drop(df[df["IMF Estimate (millions)"] == '—'].index)
-
-
-
 
 """
 ---------
@@ -65,9 +58,6 @@ df["IMF Estimate (billions)"] = (df["IMF Estimate (millions)"]/1000).round(2)
 
 df = df[["Country","IMF Estimate (billions)"]]
 
-
-
-
 """
 -----
 Load
@@ -81,10 +71,6 @@ def load_data(target_file, transformed_data):
     transformed_data.to_csv(target_file)   
   
 load_data(target_file,df)
-  
-
-  
-  
 
 """To create a table in the database, you first need to have
  the attributes of the required table. Attributes are columns of the 
